@@ -62,7 +62,15 @@ the native code from Xcode or Android Studio respectively.
 
 Your ExpoKit project manages its dependencies with [CocoaPods](https://cocoapods.org). If you encounter third-party libraries with CocoaPods instructions, those instructions should apply.
 
-Many libraries in the React Native ecosystem include instructions to run `react-native link`. These are supported with ExpoKit for iOS, but because `react-native link` is not aware of CocoaPods, it may not do a complete job installing your dependency. If you encounter build issues locating the `<React/*>` headers, you may need to manually add `Pods/Headers/Public` to the **Header Search Paths** configuration for your native dependency in Xcode.
+Many libraries in the React Native ecosystem include instructions to run `react-native link`. These are supported with ExpoKit for iOS, but because `react-native link` is not aware of CocoaPods, it may not do a complete job installing your dependency. If you encounter build issues regarding locating the `<React/*>` headers in a dependency library, you may need to follow these steps:
+
+1. In XCode, go to `{your-project}/Libraries/{some-library}`
+2. Click on the file `{some-library}.xcodeproj`
+3. In the large middle panel, click on "Build Settings". This is the build settings of that specific library
+4. Now that you're on the "Build Settings" tab, look down and double click **Header Search Paths**
+5. Click + button to add `$(SRCROOT)/../../../ios/Pods/Headers/Public` and choose `recursive`
+6. Click the "play" button in your XCode to rebuild
+
 
 ### Android
 
